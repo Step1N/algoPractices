@@ -1,7 +1,9 @@
 package dp
 
 import (
-	"math/big"
+	"fmt"
+	"strconv"
+	"strings"
 )
 
 func fib(n int) int {
@@ -81,7 +83,6 @@ func coinChange(s []int, m, n int) int {
 	return coinChange(s, m-1, n) + coinChange(s, m, n-s[m-1])
 }
 
-
 func countdp(s []int, m, n int) int {
 	table := make([]int, n+1)
 	table[0] = 1
@@ -94,12 +95,175 @@ func countdp(s []int, m, n int) int {
 	return table[n]
 }
 
-func fibModified(a, b *big.Int, n int) *big.Int {
-	lookup := make(map[int]*big.Int)
-	lookup[0] = a
-	lookup[1] = b
-	for i := 2; i < n; i++ {
-		lookup[i] = lookup[i-2].Add(lookup[i-2], (lookup[i-1].Mul(lookup[i-1], lookup[i-1])))
+func fibInitial(a, b, n int) string {
+	lookup := make(map[int]string, n)
+	lookup[0] = strconv.Itoa(a)
+	lookup[1] = strconv.Itoa(b)
+	for i := 2; i < 5; i++ {
+		x, _ := strconv.Atoi(lookup[i-2])
+		y, _ := strconv.Atoi(lookup[i-1])
+		lookup[i] = strconv.Itoa(x + y*y)
+	}
+
+	for j := 5; j < n; j++ {
+		fmt.Println("Lookup  ", j, lookup[j-1], lookup[j-2])
+		sqr := multiplyTwoStringNumber(lookup[j-1], lookup[j-1])
+		addition := addTwoStringNumber(lookup[j-2], sqr)
+		lookup[j] = addition
 	}
 	return lookup[n-1]
+}
+
+func multiplyTwoStringNumber(a, b string) string {
+	num1 := getIntArray(strings.Split(a, ""))
+	num2 := getIntArray(strings.Split(b, ""))
+	s1 := len(num1)
+	s2 := len(num2)
+	rsSize := (s1 + s2) + 1
+	res := make([]int, rsSize)
+	var carry int
+	m := 0
+	l := 0
+	for i := s2 - 1; i >= 0; i-- {
+		carry = 0
+		l = rsSize - 1 - m
+		for j := s1 - 1; j >= 0; j-- {
+			t := num1[j]*num2[i] + carry
+			carry = t / 10
+			rm := t % 10
+			if m > 0 {
+				s := res[l] + rm
+				carry += s / 10
+				rm = s % 10
+			}
+			res[l] = rm
+			l--
+		}
+		if carry > 0 {
+			res[l] = carry
+			l--
+		}
+		m++
+	}
+	res[l] = -1
+	return getString(res)
+}
+
+func getString(s []int) string {
+	res := ""
+	if len(s) < 4 {
+		res += strconv.Itoa(s[1])
+		res += strconv.Itoa(s[2])
+		return res
+	}
+	j := 1
+	for i := 0; i < len(s); i++ {
+		if s[i] != -1 {
+			j++
+			break
+		}
+
+	}
+	for ; j < len(s); j++ {
+		res += strconv.Itoa(s[j])
+	}
+	fmt.Println(res)
+	return res
+}
+
+func addTwoStringNumber(a, b string) string {
+	num1 := getIntArray(strings.Split(a, ""))
+	num2 := getIntArray(strings.Split(b, ""))
+	s1 := len(num1)
+	s2 := len(num2)
+	res := make([]int, s1+s2+2)
+	var carry int
+	if s1 <= s2 {
+		j := 0
+		k := s2 - 1
+		for i := s1 - 1; i >= 0; i-- {
+			t := num1[i] + num2[k]
+			if carry > 0 {
+				t += carry
+			}
+			res[j] = t % 10
+			carry = t / 10
+			j++
+			k--
+		}
+		for m := k; m >= 0; m-- {
+			if carry > 0 {
+				t := num2[m] + carry
+				res[j] = t % 10
+				carry = t / 10
+			} else {
+				res[j] = num2[m]
+			}
+			j++
+		}
+		if carry > 0 {
+			res[j] = carry
+			res[j+1] = -1
+		} else {
+			res[j] = -1
+		}
+
+	} else if s1 > s2 {
+		j := 0
+		k := s1 - 1
+		for i := s2 - 1; i >= 0; i-- {
+			t := num1[k] + num2[i]
+			if carry > 0 {
+				t += carry
+			}
+			res[j] = t % 10
+			carry = t / 10
+			j++
+			k--
+		}
+		for m := k; m >= 0; m-- {
+			if carry > 0 {
+				t := num1[m] + carry
+				res[j] = t % 10
+				carry = t / 10
+			} else {
+				res[j] = num1[m]
+			}
+			j++
+		}
+		if carry > 0 {
+			res[j] = carry
+			res[j+1] = -1
+		} else {
+			res[j] = -1
+		}
+	}
+
+	return getStringFromIntArray(res)
+}
+
+func getStringFromIntArray(s []int) string {
+	res := ""
+	j := -1
+	for i := len(s) - 1; i >= 0; i-- {
+		if s[i] == -1 {
+			j = i - 1
+		}
+		if j >= 0 {
+			res += strconv.Itoa(s[j])
+			j--
+		}
+	}
+
+	return res
+}
+
+func getIntArray(s []string) []int {
+	size := len(s)
+	res := make([]int, size)
+	for i := size - 1; i >= 0; i-- {
+		res[i], _ = strconv.Atoi(s[i])
+	}
+
+	return res
 }

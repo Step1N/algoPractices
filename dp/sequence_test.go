@@ -4,11 +4,10 @@ import (
 	"strings"
 	"testing"
 
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"log"
 	"time"
-	"fmt"
-	"math/big"
 )
 
 func TestFibnacciSeries(t *testing.T) {
@@ -48,7 +47,24 @@ func TestCountMinNumberOfCoin(t *testing.T) {
 	assert.Equal(t, 4, res)
 }
 
-func TestFibModified(t *testing.T) {
-	a, b, n := 0, 1 ,10
-	fmt.Print(fibModified(big.NewInt(int64(a)), big.NewInt(int64(b)), n))
+func TestAddTwoStringNumber(t *testing.T) {
+	a, b := "99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999991", "99"
+	fmt.Println("Intial", len(a))
+	r := addTwoStringNumber(a, b)
+	fmt.Println("final ", len(r))
+	fmt.Println(r)
+}
+
+func TestMultiplyTwoStringNumber(t *testing.T) {
+	a, b := "4420666042894", "2102538"
+	fmt.Println("Intial", len(a))
+	r := multiplyTwoStringNumber(a, b)
+	fmt.Println("final ", len(r))
+	fmt.Println(r)
+}
+
+func TestModifiedFibSeries(t *testing.T) {
+	a, b, n := 0, 1, 10
+	r := fibInitial(a, b, n)
+	fmt.Println(r)
 }

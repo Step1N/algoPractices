@@ -19,7 +19,7 @@ func TestCountNumberOfOccurence(t *testing.T) {
 
 func TestMedian(t *testing.T) {
 	in := []int{0, 1, 2, 4, 6, 5, 3}
-	in = quickSort(in)
+	in = QuickSort(in)
 	ln := len(in)
 	mid := ln / 2
 	if ln%2 == 0 {

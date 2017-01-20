@@ -48,7 +48,7 @@ func TestDisjointSet(t *testing.T) {
 		fmt.Println("Found parent : ", p.data)
 		if i == p.data {
 			r += (p.rank * (n - p.rank))
-			fmt.Println(i, "Value is : ", p.rank * (n - p.rank))
+			fmt.Println(i, "Value is : ", p.rank*(n-p.rank))
 		}
 
 	}

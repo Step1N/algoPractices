@@ -1,8 +1,9 @@
 package main
 
 import (
-	st "algoPractice/disjoint"
+	a "algoPractices/stackproblems"
 	"fmt"
+	s "github.com/Step1N/goUtils/stack"
 	"strconv"
 	"strings"
 )
@@ -10,10 +11,12 @@ import (
 func main() {
 	var n int
 	_, _ = fmt.Scan(&n)
-	var s int
-	_, _ = fmt.Scan(&s)
-
-	fmt.Println(st.FindAstronautsForMoonMission(n, s))
+	s1 := s.NewStack()
+	for i := 0; i < n; i++ {
+		var t int
+		_, _ = fmt.Scan(&t)
+		a.SampleEditorWithStack(t, s1)
+	}
 
 	/*var testCase, elements int
 	_, _ = fmt.Scan(&testCase)
@@ -24,7 +27,8 @@ func main() {
 	}
 	for i := 0; i < len(input); i++ {
 		out := make([][]int, 6)
-		_ = findRandomPermutation(input[i], out, 0, 6)
+		_ =
+		(input[i], out, 0, 6)
 		perSize := len(out)
 		prmArray := make([][]int, perSize)
 		for i := 0; i < perSize; i++ {
@@ -36,9 +40,6 @@ func main() {
 
 }
 
-func computPermutation(in int) {
-
-}
 func findAvgOfPermutation(input [][]int) string {
 	size := len(input)
 	sum := 0
@@ -49,6 +50,7 @@ func findAvgOfPermutation(input [][]int) string {
 	}
 	return fmt.Sprintf("%.2f", float64(sum)/float64(size))
 }
+
 func findRandomPermutation(input []int, output [][]int, index, npr int) int {
 	size := len(input)
 	out := make([]int, size)
@@ -171,30 +173,6 @@ func isEvenArray(input []int) bool {
 	}
 	return isEven
 }
-func printShiftedElement(noElm, shift, queries int) {
-	outputArray := shiftArrayByGivenBit(shift, takeArrayInput(noElm))
-	outputElement := make([]int, queries)
-	for i := 0; i < queries; i++ {
-		var in int
-		if _, err := fmt.Scanf("%d", &in); err != nil {
-			fmt.Println("  Scan for index failed, due to ", err)
-			return
-		}
-		outputElement[i] = in
-	}
-	for i := 0; i < len(outputElement); i++ {
-		fmt.Println(outputArray[outputElement[i]])
-	}
-}
-func shiftArrayByGivenBit(shift int, input []int) []int {
-	size := len(input)
-	outputArray := make([]int, size)
-	for i := 0; i < size; i++ {
-		outputArray[(i+shift)%size] = input[i]
-	}
-
-	return outputArray
-}
 
 func convertDigitalToMilitaryTime(digitalTime string) {
 	pmTime := strings.Index(digitalTime, "PM")
@@ -227,23 +205,9 @@ func printStairCase(n int) {
 	}
 }
 
-func countNumberTypeInArray(input []int) {
-	size := len(input)
-	positive, negative, zero := 0, 0, 0
-	for i := 0; i < size; i++ {
-		if input[i] > 0 {
-			positive++
-		} else if input[i] < 0 {
-			negative++
-		} else {
-			zero++
-		}
-	}
-	fmt.Printf("%.6f\n", float64(positive)/float64(size))
-	fmt.Printf("%.6f\n", float64(float64(negative)/float64(size)))
-	fmt.Printf("%.6f\n", float64(float64(zero)/float64(size)))
-}
-
+/*
+	[
+*/
 func takeInputForMatrix(size int) [][]int {
 	input := make([][]int, size)
 	for i := 0; i < size; i++ {
@@ -260,85 +224,6 @@ func takeInputForMatrix(size int) [][]int {
 	}
 	return input
 
-}
-
-func findDigonalDiff(input [][]int) int {
-	left, right := findDigonalsOfMatrix(input)
-	sLeft, sRight := 0, 0
-	for i := 0; i < len(left); i++ {
-		sLeft += left[i]
-	}
-	for i := 0; i < len(right); i++ {
-		sRight += right[i]
-	}
-	diff := sLeft - sRight
-	if sRight > sLeft {
-		diff = sRight - sLeft
-	}
-
-	return diff
-}
-
-func findDigonalsOfMatrix(input [][]int) ([]int, []int) {
-	size := len(input)
-	leftDigonal, rightDigonal := make([]int, size), make([]int, size)
-	for i := 0; i < size; i++ {
-		for j := 0; j < size; j++ {
-			if i == j {
-				leftDigonal[i] = input[i][j]
-			}
-		}
-	}
-
-	for i := 0; i < size; i++ {
-		rightDigonal[i] = input[i][(size-1)-i]
-	}
-
-	return leftDigonal, rightDigonal
-}
-
-func takeInt64ArrayInput(length int) []int64 {
-	input := make([]int64, 0)
-	for i := 0; i < length; i++ {
-		var k int64
-		_, err := fmt.Scan(&k)
-		if err != nil {
-			fmt.Errorf("  Scan for k failed, due to ", err)
-			continue
-		}
-		input = append(input, k)
-	}
-	return input
-}
-
-func sumOfInt64Array(input []int64) (sum int64) {
-	for i := 0; i < len(input); i++ {
-		sum += input[i]
-	}
-
-	return
-}
-
-func takeArrayInput(length int) []int {
-	input := make([]int, 0)
-	for i := 0; i < length; i++ {
-		var k int
-		_, err := fmt.Scan(&k)
-		if err != nil {
-			fmt.Errorf("  Scan for k failed, due to ", err)
-			continue
-		}
-		input = append(input, k)
-	}
-	return input
-}
-
-func sumOfArray(input []int) (sum int) {
-	for i := 0; i < len(input); i++ {
-		sum += input[i]
-	}
-
-	return
 }
 
 func tripletProblem(aTriplet, bTribple []int) {

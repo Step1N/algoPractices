@@ -15,7 +15,7 @@ func takeStringInput() string {
 }
 
 //To read input as space seprated number
-func takeArrayInput(length int) []int {
+func TakeArrayInput(length int) []int {
 	input := make([]int, 0)
 	for i := 0; i < length; i++ {
 		var k int

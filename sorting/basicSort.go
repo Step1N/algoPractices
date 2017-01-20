@@ -3,6 +3,7 @@ package sorting
 import (
 	"fmt"
 	"math/rand"
+	"goUtils/stack"
 )
 
 func InsertionByShift(in []int) []int {
@@ -52,7 +53,7 @@ func CountNumberOfOccurence(in []int) []int {
 	return out
 }
 
-func quickSort(a []int) []int {
+func QuickSort(a []int) []int {
 	if len(a) < 2 {
 		return a
 	}
@@ -68,7 +69,20 @@ func quickSort(a []int) []int {
 	}
 	a[left], a[right] = a[right], a[left]
 
-	quickSort(a[:left])
-	quickSort(a[left+1:])
+	QuickSort(a[:left])
+	QuickSort(a[left+1:])
 	return a
+}
+
+func sortUsingTwoStack(in []int)  {
+	s1 := stack.NewStack()
+	s2 := stack.NewStack()
+	s1.Push(in[0])
+	s1.Push(in[1])
+	for i := 0; i<len(in);i++  {
+		p := s2.Peek().(int)
+		if in[i] < p{
+			s2.Push(in[i])
+		}
+	}
 }

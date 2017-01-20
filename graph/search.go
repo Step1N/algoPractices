@@ -42,13 +42,3 @@ func dfsVisit(node int, nodes map[int][]int, v map[int]bool, visitFunc func(int)
 		}
 	}
 }
-
-func synchronizeHelper(node int, nodes map[int][]int, v map[int]bool, visitFunc func(int)) {
-	v[node] = true
-	visitFunc(node)
-	for _, n := range nodes[node] {
-		if _, ok := v[n]; !ok {
-			dfsVisit(n, nodes, v, visitFunc)
-		}
-	}
-}
