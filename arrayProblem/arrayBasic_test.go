@@ -42,3 +42,24 @@ func TestFindLCSInSequenceDP(*testing.T) {
 	s, s1 := "AGGTAB", "GXTXAYB"
 	fmt.Println(findLCSInSequenceDP(s1, s, len(s)-1, len(s1)-1))
 }
+
+func TestCountSubArrayHavingSumDivisibalByK(*testing.T) {
+	in := []int{4, 5, 0, -2, -3, 1}
+	fmt.Println(CountSubArrayHavingSumDivisibleByK(in, 5))
+}
+
+func TestCountMaxSubArray(*testing.T) {
+	in := []int{4, 5, 0, -2, -3}
+	fmt.Println(CountMaxSumOfSubSubArray(in))
+}
+
+func TestFindNumberOfSubArrayWhichMaxElementGreatorThanGiven(*testing.T) {
+	in := []int{1, 2, 3}
+	fmt.Println(FindNumberOfSubArrayWhichMaxElementGreaterThanGiven(in, 2))
+}
+
+func TestFindMaxIntegerOccurredInRange(*testing.T) {
+	st := []int{1, 4, 9, 13, 21}
+	en := []int{15, 8, 12, 20, 30}
+	fmt.Println(FindMaxIntegerOccurredInRange(st, en))
+}

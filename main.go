@@ -1,22 +1,15 @@
 package main
 
 import (
-	a "algoPractices/stackproblems"
+	s "algoPractices/sorting"
 	"fmt"
-	s "github.com/Step1N/goUtils/stack"
 	"strconv"
 	"strings"
 )
 
 func main() {
-	var n int
-	_, _ = fmt.Scan(&n)
-	s1 := s.NewStack()
-	for i := 0; i < n; i++ {
-		var t int
-		_, _ = fmt.Scan(&t)
-		a.SampleEditorWithStack(t, s1)
-	}
+	in := []int{5, 8, 1, 3, 7, 9, 2}
+	s.QuickSortPartition(in)
 
 	/*var testCase, elements int
 	_, _ = fmt.Scan(&testCase)

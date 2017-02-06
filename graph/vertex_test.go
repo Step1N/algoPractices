@@ -89,6 +89,6 @@ func TestCountingOnTree(t *testing.T) {
 		10|2,1
 	`
 	G2 := plotGraph(s)
-	CountingOnTreeProblem(G2.GetVertexByID("1"))
+	CountingOnTreeProblem(G2.GetVertexByID("3"), G2.GetVertexByID("8"))
 	fmt.Println()
 }

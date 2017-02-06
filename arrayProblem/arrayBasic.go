@@ -319,6 +319,7 @@ func findLCSInSequenceRec(s, s1 string, m, n int) int {
 		return max(findLCSInSequenceRec(s, s1, m, n-1), findLCSInSequenceRec(s, s1, m-1, n))
 	}
 }
+
 func findLCSInSequenceDP(s, s1 string, m, n int) int {
 	lookup := make([][]int, m+1)
 	for i := 0; i <= m; i++ {
@@ -349,3 +350,73 @@ func max(a, b int) int {
 		return b
 	}
 }
+
+func CountSubArrayHavingSumDivisibleByK(in []int, k int) int {
+	size := len(in)
+	tmp := make([]int, size)
+	sum := 0
+	for i := 0; i < size; i++ {
+		sum += in[i]
+		tmp[((sum%k)+k)%k]++
+	}
+	res := 0
+	for i := 0; i < k; i++ {
+		if tmp[i] > 0 {
+			res += (tmp[i] * (tmp[i] - 1)) / 2
+		}
+	}
+	res += tmp[0]
+	fmt.Println(tmp)
+
+	return res
+}
+
+func CountMaxSumOfSubSubArray(in []int) int {
+	maxEnd, maxSoFor := in[0], in[0]
+	for i := 1; i < len(in); i++ {
+		tmp := in[i]
+		maxEnd = max(tmp, maxEnd+tmp)
+		maxSoFor = max(maxSoFor, maxEnd)
+	}
+
+	return maxSoFor
+}
+
+func FindNumberOfSubArrayWhichMaxElementGreaterThanGiven(in []int, k int) int {
+	size, i, sum := 0, 0, len(in)
+	for i < size {
+		if in[i] > k {
+			i++
+			continue
+		}
+		count := 0
+		for i < size && in[i] <= k {
+			i++
+			count++
+		}
+		sum += ((count * (count + 1)) / 2)
+	}
+
+	return ((size*(size+1))/2 - sum)
+}
+
+func FindMaxIntegerOccurredInRange(start, end []int) int {
+	size := 100
+	tmp := make([]int, size)
+	for i := 0; i < len(start); i++ {
+		tmp[start[i]] = tmp[start[i]] + 1
+		tmp[end[i]+1] -= 1
+	}
+	maxSum, index := tmp[0], 0
+	for i := 1; i < size; i++ {
+		tmp[i] += tmp[i-1]
+		if maxSum < tmp[i] {
+			maxSum = tmp[i]
+			index = i
+		}
+	}
+
+	return index
+}
+
+

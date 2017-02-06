@@ -25,7 +25,6 @@ func findNumberOfDayToDiePlants(in []int) int {
 	stk := s.NewStack()
 	tmp := make([]int, size)
 	min, max := in[0], 0
-
 	for i := 1; i < size; i++ {
 		if in[i] > in[i-1] {
 			tmp[i] = 1
@@ -49,14 +48,6 @@ func findNumberOfDayToDiePlants(in []int) int {
 		stk.Push(i)
 	}
 	return max
-}
-
-func findDiff(a, b int) int {
-	if a > b {
-		return a - b
-	} else {
-		return b - a
-	}
 }
 
 func computeBitwiseEquation(in []int) int {

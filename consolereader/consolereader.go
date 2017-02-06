@@ -19,11 +19,7 @@ func TakeArrayInput(length int) []int {
 	input := make([]int, 0)
 	for i := 0; i < length; i++ {
 		var k int
-		_, err := fmt.Scan(&k)
-		if err != nil {
-			fmt.Errorf("  Scan for k failed, due to ", err)
-			continue
-		}
+		_, _ = fmt.Scan(&k)
 		input = append(input, k)
 	}
 	return input

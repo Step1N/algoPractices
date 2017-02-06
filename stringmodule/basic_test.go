@@ -6,7 +6,7 @@ import (
 )
 
 func TestReduceString(t *testing.T) {
-	fmt.Println(reduceStringToUniqe("aab", 0))
+	fmt.Println(ReduceStringToUnique("aaabccddd"))
 }
 func TestCountWord(t *testing.T) {
 	var testCase string
@@ -47,9 +47,4 @@ func TestFindValidString(t *testing.T) {
 func TestAllCombination(t *testing.T) {
 	input := []int{3, 3, 9, 9, 5}
 	prefixSum(input)
-}
-
-func TestLaxicographicOrder(t *testing.T) {
-	s, s1 := "JACK", "DANIEL"
-	fmt.Print(laxicographicOrder(s, s))
 }

@@ -5,25 +5,37 @@ import (
 	"strings"
 )
 
-func reduceStringToUniqe(input string, index int) string {
+func ReduceStringToUnique(input string) string {
+	size := len(input)
+	uniqueMap := make(map[byte]int, size)
+	tmpArray := make([]string, size)
+	for i := 0; i < size; i++ {
+		if uniqueMap[input[i]] != 0 {
+			uniqueMap[input[i]] = uniqueMap[input[i]] + 1
+		} else {
+			tmpArray[i] = string(input[i])
+			uniqueMap[input[i]] = 1
+		}
 
-	if len(strings.TrimSpace(input)) == 0 {
+	}
+	res := ""
+	for key, val := range uniqueMap {
+		if val%2 != 0 {
+			res += string(key)
+		}
+	}
+	f := ""
+	for a := range tmpArray {
+		if strings.Contains(res, a) {
+			f += a
+		}
+	}
+	fmt.Print(tmpArray, " final res  : ", f)
+	if len(res) == 0 {
 		return "Empty String"
 	}
-	if len(input) == 1 {
-		return input
-	}
 
-	tmp := strings.Split(input, "")
-	if index < len(input) && tmp[index] == tmp[index+1] {
-		out := fmt.Sprintf("%s%s ", input[:index], input[index+2:])
-		input = reduceStringToUniqe(out, index+1)
-	} else {
-		fmt.Println(input)
-		input = reduceStringToUniqe(input, index+1)
-	}
-
-	return input
+	return res
 }
 
 func countWord(s string) (count int) {
@@ -287,13 +299,4 @@ func prefixSum(input []int) {
 		pSum[i+1] = pSum[i] + input[i]
 	}
 	fmt.Print(pSum)
-}
-
-func laxicographicOrder(s, s1 string) string {
-	res := ""
-	for i := range s {
-		for j := range s1 {
-		}
-	}
-	return ""
 }

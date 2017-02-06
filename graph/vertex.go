@@ -99,10 +99,6 @@ func StrToInt(s string) int {
 	return result
 }
 
-func PathExistBetweenTwoVertex(s, d *Vertex) {
-
-}
-
 func plotGraph(s string) *Graph {
 	s = strings.TrimSpace(s)
 	lines := strings.Split(s, "\n")
@@ -223,6 +219,7 @@ func CountingOnTreeProblem(startSource, destination *Vertex) {
 	front := []*Vertex{startSource}
 	startSource.Visited = true
 	fmt.Printf("%v \n", startSource.Id)
+	isDestinationArrived := false
 	for i := 0; i < len(front); i++ {
 		u := front[i]
 		for _, edge := range u.AdjEdge {
@@ -232,6 +229,18 @@ func CountingOnTreeProblem(startSource, destination *Vertex) {
 				d.Visited = true
 				front = append(front, d)
 			}
+			if startSource.Id == destination.Id {
+				isDestinationArrived = true
+				break
+			}
+		}
+
+		if isDestinationArrived {
+			break
 		}
 	}
+}
+
+func DijkstraMinimumDistanceFromSourceToDestination(startSource, destination *Vertex) {
+
 }
