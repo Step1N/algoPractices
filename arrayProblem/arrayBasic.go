@@ -3,6 +3,7 @@ package arrayProblem
 import (
 	"algoPractices/sorting"
 	"fmt"
+	"math"
 )
 
 type Vendor struct {
@@ -418,5 +419,115 @@ func FindMaxIntegerOccurredInRange(start, end []int) int {
 
 	return index
 }
+
+func Find3MForGivenInput(in []int) int {
+	size := len(in)
+	var sum int
+	inputMap := make(map[int]int, 0)
+	for i := 0; i < size; i++ {
+		k := in[i]
+		sum += k
+		if inputMap[k] >= 1 {
+			t := inputMap[k]
+			t++
+			inputMap[k] = t
+		} else {
+			inputMap[k] = 1
+		}
+	}
+	fmt.Println(fmt.Sprintf("%.1f", float64(sum)/float64(size)))
+	mxOccurrence, mOccurrenceValue := 0, 0
+	for key, value := range inputMap {
+		if value > mxOccurrence {
+			mxOccurrence = value
+			mOccurrenceValue = key
+		}
+	}
+	for key, value := range inputMap {
+		if value == mxOccurrence && key < mOccurrenceValue {
+			mOccurrenceValue = key
+		}
+	}
+	fmt.Println(mOccurrenceValue)
+
+	sorting.QuickSort(in)
+	var median float64
+	if size%2 == 0 {
+		tmpIndex := size / 2
+		tmpSum := in[tmpIndex-1] + in[tmpIndex]
+		median = (float64(tmpSum) / float64(2))
+	} else {
+		tmpIndex := size / 2
+		median = float64(in[tmpIndex-1])
+	}
+	fmt.Println(median)
+
+	return 0
+}
+
+func FindQuartilesGivenInput(in []int) (median float64, tmpIndex int) {
+	size := len(in)
+	if size%2 == 0 {
+		tmpIndex = size / 2
+		tmpSum := in[tmpIndex-1] + in[tmpIndex]
+		median = (float64(tmpSum) / float64(2))
+	} else {
+		tmpIndex = size / 2
+		median = float64(in[tmpIndex])
+	}
+	fmt.Println(in)
+	return
+}
+
+func FindSDForGivenArray(in []int) {
+	size := len(in)
+	var sum int
+	for i := 0; i < size; i++ {
+		k := in[i]
+		sum += k
+	}
+	mean := int(float64(sum) / float64(size))
+	sum = 0
+	for i := 0; i < size; i++ {
+		k := (mean - in[i]) * (mean - in[i])
+		sum += k
+	}
+	sQuerSum := float64(sum) / float64(size)
+	stDeviation := math.Sqrt(sQuerSum)
+
+	fmt.Println(fmt.Sprintf("%.1f", stDeviation))
+}
+
+//Equal Stacks
+func PlayGameOfStone(tCase int) {
+	turn := true
+	canRemoved := false
+	numberOfWinByP1 ,numberOfWinByP2 := 0, 0
+	for i := 0; i < tCase; i++ {
+		var k int
+		_, _ = fmt.Scan(&k)
+		if k%2 == 0 || k%3 == 0 || k%5 == 0 {
+			canRemoved = true
+		}
+		if canRemoved {
+			if turn {
+				fmt.Println("First")
+				numberOfWinByP1++
+			} else {
+				fmt.Println("Second")
+				numberOfWinByP2++
+			}
+		} else {
+			if turn {
+				fmt.Println("First")
+				turn = false
+			} else {
+				fmt.Println("Second")
+				turn = true
+			}
+		}
+	}
+}
+
 
 
